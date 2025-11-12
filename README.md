@@ -1,6 +1,6 @@
 # Home Assistant smart light blueprint
 
-![logo](/logo.png)
+![logo](/logo.small.png)
 
 Make your lights turn on, off, change their brightness and color temperature, automatically.
 
