@@ -4,6 +4,7 @@ blueprint:
     Turns on selected lights when motion is detected and it's dark enough.
     Brightness adapts to ambient lux between configured thresholds, and color
     temperature follows the sun's elevation.
+  author: François Lachèse
   domain: automation
   input:
     motion_sensor:
