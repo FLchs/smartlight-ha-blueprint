@@ -25,7 +25,34 @@ Then the automation configuration is self explanatory.
 
 ## How does it work ?
 
-This blueprint is [KISS](https://en.wikipedia.org/wiki/KISS_principle).
+This blueprint tries to follow [KISS principle](https://en.wikipedia.org/wiki/KISS_principle), anyone with basic knowledge of Home Assistant automation should be able to understand and troubleshot it.
+
+### Logic
+
+Here is how values are computed :
+
+#### Brightness
+
+The lights brightness is calculated using the current lux from the sensor.
+It stays at maximum brightness when the lux is below the "low" threshold, gradually decreases as lux rises between the "low" and "high" values, and turns off once it reaches the minimum brightness at the "high" threshold.
+
+```
+max_b - (lux - low) * (max_b - min_b) / (high - low))
+```
+
+It is a simple decreasing [linear interpolation](https://en.wikipedia.org/wiki/Linear_interpolation).
+
+#### Color temperature
+
+- Warm at low sun elevation (sunrise/sunset)
+- Cool at high elevation (noon)
+- Smooth nonlinear curve
+
+```
+min_ct + (max_ct - min_ct) * (clamped / 90) ** 0.8
+```
+
+The equation linearly scales the color temperature between min_ct and max_ct based on the sun’s elevation, using a nonlinear exponent to make it warmer at low angles and cooler at high angles.
 
 ### Here is the flowchart that explains how it works
 
