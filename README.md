@@ -1,5 +1,7 @@
 # Home Assistant smart light blueprint
 
+![GitHub License](https://img.shields.io/github/license/FLchs/smartlight-ha-blueprint%20)
+
 <p align="center">
     <img src="./.github/assets/logo.small.png" alt="blueprint logo">
 </p>
