@@ -55,11 +55,11 @@ if it’s above *high*, it’s clamped to *min_b*.
 
 ex:
 
-- lux = 45
-- low = 15
-- high = 200
-- min_b = 20%
-- max_b = 100%
+- *lux* = *45*
+- *low* = *15*
+- *high* = *200*
+- *min_b* = *20%*
+- *max_b* = *100%*
 
 ```bash
 100−(45−15)×(100−20)/(200−15)
@@ -85,9 +85,9 @@ The exponent 0.8 softens the curve, making the transition slower near the horizo
 
 Example:
 
-- min_ct = 2400 K
-- max_ct = 4200 K
-- sun_elevation = 11°
+- *min_ct* = *2400 K*
+- *max_ct* = *4200 K*
+- *sun_elevation* = *11°*
 
 ```bash
 2400+(4200−2400)×(11/90)0.8=2740 K
