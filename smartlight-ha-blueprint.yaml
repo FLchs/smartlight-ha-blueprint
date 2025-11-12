@@ -1,3 +1,4 @@
+---
 blueprint:
   name: Smart Lights - Adaptive Brightness & Color Temperature
   description: >
@@ -109,7 +110,7 @@ triggers:
 conditions: []
 
 
-variables: 
+variables:
   light_sensor: !input light_sensor
   low_lux: !input low_lux
   high_lux: !input high_lux
