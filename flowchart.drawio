@@ -1,0 +1,69 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:144.0) Gecko/20100101 Firefox/144.0" version="28.2.9">
+  <diagram name="Page-1" id="CPS7p4y4BQGi7queqFxx">
+    <mxGraphModel dx="612" dy="1227" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-elih-cdWFZcvsWTz7zx-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="-elih-cdWFZcvsWTz7zx-2" target="-elih-cdWFZcvsWTz7zx-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-12" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="-elih-cdWFZcvsWTz7zx-11">
+          <mxGeometry x="0.275" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-2" value="Is motion detected ?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="215" y="400" width="170" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="-elih-cdWFZcvsWTz7zx-3" target="-elih-cdWFZcvsWTz7zx-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-14" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="-elih-cdWFZcvsWTz7zx-13">
+          <mxGeometry x="-0.3727" y="-4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="-elih-cdWFZcvsWTz7zx-3" target="-elih-cdWFZcvsWTz7zx-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-16" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="-elih-cdWFZcvsWTz7zx-15">
+          <mxGeometry x="0.175" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-3" value="Is ambient brightness&lt;br&gt;under low lux threshold ?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="215" y="650" width="170" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-4" value="Trigger:&amp;nbsp;&lt;br&gt;&lt;div align=&quot;left&quot;&gt;- Motion changes&lt;br&gt;- Each x minute&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="240" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-5" value="&lt;div&gt;- Turn lights on&lt;/div&gt;&lt;div&gt;- Set brightness&lt;/div&gt;&lt;div&gt;- Set color temperature&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="900" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-6" value="Turns lights off" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-8" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="-elih-cdWFZcvsWTz7zx-4" target="-elih-cdWFZcvsWTz7zx-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="360" as="sourcePoint" />
+            <mxPoint x="430" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-9" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=11;" edge="1" parent="1" source="-elih-cdWFZcvsWTz7zx-2" target="-elih-cdWFZcvsWTz7zx-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="490" as="sourcePoint" />
+            <mxPoint x="520" y="480" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="500" y="485" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-elih-cdWFZcvsWTz7zx-10" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="-elih-cdWFZcvsWTz7zx-9">
+          <mxGeometry x="-0.41" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
