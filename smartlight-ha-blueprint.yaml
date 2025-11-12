@@ -1,0 +1,145 @@
+blueprint:
+  name: Smart Lights - Adaptive Brightness & Color Temperature
+  description: >
+    Turns on selected lights when motion is detected and it's dark enough.
+    Brightness adapts to ambient lux between configured thresholds, and color
+    temperature follows the sun's elevation.
+  domain: automation
+  input:
+    motion_sensor:
+      name: Motion sensor
+      description: The binary sensor that detects motion.
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: occupancy
+
+    light_sensor:
+      name: Illuminance sensor
+      description: The sensor measuring ambient light (in lux).
+      selector:
+        entity:
+          domain: sensor
+
+    target_lights:
+      name: Lights
+      description: The lights to control.
+      selector:
+        target:
+          entity:
+            domain: light
+
+    low_lux:
+      name: Low Lux Threshold
+      description: "When lux ≤ this value, brightness will be maximum."
+      default: 15
+      selector:
+        number:
+          min: 0
+          max: 500
+          step: 1
+          unit_of_measurement: lx
+          mode: box
+
+    high_lux:
+      name: High Lux Threshold
+      description: "When lux ≥ this value, brightness will be turned off."
+      default: 100
+      selector:
+        number:
+          min: 0
+          max: 1000
+          step: 1
+          unit_of_measurement: lx
+          mode: box
+
+    min_brightness:
+      name: Minimum Brightness (%)
+      description: "Brightness at high_lux."
+      default: 40
+      selector:
+        number:
+          min: 1
+          max: 100
+          step: 1
+          unit_of_measurement: "%"
+
+    max_brightness:
+      name: Maximum Brightness (%)
+      description: "Brightness at or below low_lux."
+      default: 100
+      selector:
+        number:
+          min: 1
+          max: 100
+          step: 1
+          unit_of_measurement: "%"
+
+    min_color_temp:
+      name: Minimum Color Temp (K)
+      description: "Warmest possible color temperature."
+      default: 3000
+      selector:
+        number:
+          min: 1500
+          max: 6500
+          step: 100
+          unit_of_measurement: K
+
+    max_color_temp:
+      name: Maximum Color Temp (K)
+      description: "Coolest possible color temperature."
+      default: 4000
+      selector:
+        number:
+          min: 1500
+          max: 6500
+          step: 100
+          unit_of_measurement: K
+
+mode: single
+
+triggers:
+  - trigger: state
+    entity_id: !input motion_sensor
+  - trigger: time_pattern
+    minutes: "*"
+
+conditions: []
+
+actions:
+  - choose:
+      - conditions:
+          - condition: state
+            entity_id: !input motion_sensor
+            state: "on"
+          - condition: numeric_state
+            entity_id: !input light_sensor
+            below: !input high_lux
+        sequence:
+          - action: light.turn_on
+            target: !input target_lights
+            data:
+              brightness_pct: >
+                {% set lux = states(light_sensor) | float(0) %}
+                {% set low = low_lux | float(15) %}
+                {% set high = high_lux | float(100) %}
+                {% set min_b = min_brightness | float(40) %}
+                {% set max_b = max_brightness | float(100) %}
+
+                {% set brightness = max(min_b, min(max_b,
+                  max_b - (lux - low) * (max_b - min_b) / (high - low))) %}
+                {{ brightness | round(0) }}
+
+              color_temp_kelvin: >-
+                {% set min_ct = min_color_temp | int %}
+                {% set max_ct = max_color_temp | int %}
+                {% set elevation = state_attr('sun.sun','elevation') | float %}
+                {% set clamped = [0, [elevation, 90]|min]|max %}
+                {% set ct = min_ct + (max_ct - min_ct) * (clamped / 90) ** 0.8 %}
+                {{ ct | int }}
+
+    default:
+      - action: light.turn_off
+        target: !input target_lights
+
