@@ -41,14 +41,34 @@ Here is how values are computed :
 
 #### Brightness
 
-The brightness of the lights is calculated using the current lux from the sensor.
-It stays at maximum brightness when the lux is below the "low" threshold, gradually decreases as lux rises between the "low" and "high" values, and turns off once it reaches the minimum brightness at the "high" threshold.
+- Brighter when ambient light is low
+- Dimmer when ambient light is high
+- Adjusts brightness smoothly between defined limits
 
 ```
 max_b - (lux - low) * (max_b - min_b) / (high - low))
 ```
 
-It is a simple decreasing [linear interpolation](https://en.wikipedia.org/wiki/Linear_interpolation).
+This formula linearly decreases brightness from *max_b* to *min_b* as the measured light (*lux*) increases between the *low* and *high* thresholds.
+If the *light level* is below *low*, brightness is set at *max_b*;
+if it’s above *high*, it’s clamped to *min_b*.
+
+ex:
+
+- lux = 45
+- low = 15
+- high = 200
+- min_b = 20%
+- max_b = 100%
+
+```bash
+100−(45−15)×(100−20)/(200−15)
+=100−30×80/185
+=100−12.97 
+= 87%
+```
+
+→ The lights are set to 87% brightness, since the room is moderately bright.
 
 #### Color temperature
 
@@ -56,12 +76,38 @@ It is a simple decreasing [linear interpolation](https://en.wikipedia.org/wiki/L
 - Cool at high elevation (noon)
 - Smooth nonlinear curve
 
-```
-min_ct + (max_ct - min_ct) * (clamped / 90) ** 0.8
+```bash
+home-assistant_ct + (max_ct - min_ct) * (sun_elevation / 90) ** 0.8
 ```
 
-The equation scales the color temperature between min_ct and max_ct based on the sun’s elevation, using a nonlinear exponent to make it warmer at low angles and cooler at high angles.
+This formula gradually increases the color temperature from min_ct to max_ct as the sun rises.
+The exponent 0.8 softens the curve, making the transition slower near the horizon and faster as the sun climbs.
+
+Example:
+
+- min_ct = 2400 K
+- max_ct = 4200 K
+- sun_elevation = 11°
+
+```bash
+2400+(4200−2400)×(11/90)0.8=2740 K
+2400+(4200−2400)×(11/90)
+0.8
+= 2740 K
+```
+
+→ The light is warm (≈ 2700 K) since the sun is low.
 
 ### Flowchart
 
 ![Flow chart describing the blueprint process](/flowchart.drawio.png)
+
+## Roadmap
+
+- [x] Release a working blueprint
+- [ ] Improve logic for color temperature
+- [ ] Decide if adding an overide sensor is fancy or not
+
+## Contributing
+
+Issues and pull-request welcome.
