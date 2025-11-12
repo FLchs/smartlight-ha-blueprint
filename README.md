@@ -2,6 +2,8 @@
 
 Make your lights turn on, off, change their brightness and color temperature, automatically.
 
+[![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2FFLchs%2Fsmartlight-ha-blueprint%2Frefs%2Fheads%2Fmaster%2Fsmartlight-ha-blueprint.yaml)
+
 ## Why ?
 
 There are many blueprints that already do the same thing, partly or with other (often unnecessary) features.
