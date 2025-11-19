@@ -135,15 +135,6 @@ blueprint:
 
 mode: single
 
-triggers:
-  - trigger: state
-    entity_id: !input motion_sensor
-  - trigger: time_pattern
-    minutes: "/{{ !input('heartbeat') }}"
-
-conditions: []
-
-
 variables:
   light_sensor: !input light_sensor
   low_lux: !input low_lux
@@ -154,6 +145,18 @@ variables:
   max_color_temp: !input max_color_temp
   e_min: !input e_min
   gamma: !input gamma
+
+trigger_variables:
+  interval: !input heartbeat
+
+triggers:
+  - trigger: state
+    entity_id: !input motion_sensor
+  - platform: template
+    value_template: >
+      {{ (now().minute % interval | int) == 0 }}
+
+conditions: []
 
 actions:
   - choose:
