@@ -1,6 +1,6 @@
 # Home Assistant smart light blueprint
 
-![GitHub License](https://img.shields.io/github/license/FLchs/smartlight-ha-blueprint%20) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/FLchs/smartlight-ha-blueprint/ci.yaml)
+![GitHub License](https://img.shields.io/github/license/FLchs/smartlight-ha-blueprint%20) ![GitHub Actions Workflow Status](https://img.shields.io/github/check-runs/FLchs/smartlight-ha-blueprint/master)
 
 <p align="center">
     <img src="./.github/assets/logo.small.png" alt="blueprint logo">
