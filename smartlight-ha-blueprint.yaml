@@ -23,6 +23,14 @@ blueprint:
         entity:
           domain: sensor
 
+    heartbeat:
+      name: Heartbeat Interval
+      description: "Time interval for the heartbeat trigger."
+      default: "*"
+      selector:
+        text:
+          description: "Use a cron-like format, e.g. '*', '0-59', or '*/5'."
+
     target_lights:
       name: Lights
       description: The lights to control.
@@ -105,7 +113,7 @@ triggers:
   - trigger: state
     entity_id: !input motion_sensor
   - trigger: time_pattern
-    minutes: "*"
+    minutes: !input heartbeat
 
 conditions: []
 
