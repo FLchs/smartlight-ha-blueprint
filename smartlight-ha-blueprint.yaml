@@ -133,6 +133,13 @@ blueprint:
           step: 0.1
           mode: box
 
+    update_frequency:
+      name: Update frequency
+      description: Update frequency
+      default: "/5"
+      selector:
+        text:
+
 mode: single
 
 variables:
@@ -155,6 +162,9 @@ triggers:
   - trigger: template
     value_template: >
       {{ (now().minute % interval | int) == 0 }}
+  - platform: time_pattern
+    id: temp_update
+    minutes: !input update_frequency
 
 conditions: []
 
