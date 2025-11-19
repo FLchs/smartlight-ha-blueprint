@@ -26,13 +26,9 @@ blueprint:
     heartbeat:
       name: Heartbeat Interval
       description: "Time interval for the heartbeat trigger."
-      default: "1"
+      default: "/5"
       selector:
-        number:
-          min: 0
-          max: 30
-          step: 1
-          unit_of_measurement: min
+        text:
 
     target_lights:
       name: Lights
@@ -133,12 +129,6 @@ blueprint:
           step: 0.1
           mode: box
 
-    update_frequency:
-      name: Update frequency
-      description: Update frequency
-      default: "/5"
-      selector:
-        text:
 
 mode: single
 
@@ -161,9 +151,9 @@ triggers:
     entity_id: !input motion_sensor
   - trigger: state
     entity_id: !input light_sensor
-  # - platform: time_pattern
-  #   id: temp_update
-  #   minutes: !input update_frequency
+  - platform: time_pattern
+    id: temp_update
+    minutes: !input heartbeat
 
 conditions: []
 
