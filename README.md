@@ -57,7 +57,7 @@ This formula linearly decreases brightness from *max_b* to *min_b* as the measur
 If the *light level* is below *low*, brightness is set at *max_b*;
 if it’s above *high*, it’s clamped to *min_b*.
 
-ex:
+Example:
 
 - *lux* = __45__
 - *low* = __15__
@@ -74,30 +74,51 @@ ex:
 
 → The lights are set to 87% brightness since the room is quite dark (depend on sensors).
 
-#### Color temperature
+#### Color Temperature
 
-- Warm at low sun elevation (sunrise/sunset)
-- Cool at high elevation (noon)
-- Smooth nonlinear curve
+- Warm when the sun is low (sunrise/sunset)
+- Cooler as the sun rises higher
+- Follows a smooth nonlinear curve based on solar elevation
 
-```bash
-min_ct + (max_ct - min_ct) * (sun_elevation / 90) ** 0.8
-```
+min_ct + (max_ct - min_ct) * ( (elevation - e_min) / (90 - e_min) ) ** gamma
 
-This formula gradually increases the color temperature from *min_ct* to *max_ct* as the sun rises.
-The exponent 0.8 softens the curve, making the transition slower near the horizon and faster as the sun climbs.
+This equation maps the sun’s elevation to a color temperature between *min_ct* (warmest) and *max_ct* (coolest).  
+The elevation is first clamped between *e_min* (civil twilight) and 90° (sun at zenith), then normalized to a 0–1 scale.  
+The *gamma* value controls how quickly the color temperature transitions: lower gamma keeps the temperature warmer for longer; higher gamma shifts more quickly toward cooler tones.
 
-Example:
+Examples:
 
-- *min_ct* = __2400 K__
-- *max_ct* = __4200 K__
-- *sun_elevation* = __11°__
+1. Sun is low in the sky:
 
-```bash
-2400+(4200−2400)×(11/90)**0.8=2740 K
-```
+- elevation = 12°  
+- e_min = -6°  
+- min_ct = 2000 K  
+- max_ct = 4000 K  
+- gamma = 0.8  
 
-→ The light is warm (≈ __2700 K__) since the sun is low.
+norm = (12 - (-6)) / (90 - (-6)) = 18 / 96 = 0.1875  
+ct = 2000 + (4000 - 2000) *(0.1875 ** 0.8)  
+= 2000 + 2000* 0.261  
+≈ 2000 + 522  
+≈ 2522 K  
+
+→ The lights are set to ~2520 K, very warm because the sun is still low.
+
+2. Sun is near zenith:
+
+- elevation = 75°  
+- e_min = -6°  
+- min_ct = 2000 K  
+- max_ct = 4000 K  
+- gamma = 0.8  
+
+norm = (75 - (-6)) / (90 - (-6)) = 81 / 96 = 0.84375  
+ct = 2000 + (4000 - 2000) *(0.84375 ** 0.8)  
+= 2000 + 2000* 0.873  
+≈ 2000 + 1746  
+≈ 3746 K  
+
+→ The lights are set to ~3750 K, cooler as the sun is high.
 
 ### Flowchart
 
