@@ -152,7 +152,7 @@ trigger_variables:
 triggers:
   - trigger: state
     entity_id: !input motion_sensor
-  - platform: template
+  - trigger: template
     value_template: >
       {{ (now().minute % interval | int) == 0 }}
 
